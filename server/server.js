@@ -11,16 +11,12 @@ import projectsRouter from './src/routes/projects.js';
 import tasksRouter from './src/routes/tasks.js';
 import commentsRouter from './src/routes/comments.js';
 
-/**/ 
-const cors = require('cors');
-/**/ 
+
 
 
 const app = express();
 
-/**/ 
-app.use(cors()); 
-/**/ 
+
 
 app.use(helmet());
 app.use(cors({ origin: '*'}));
