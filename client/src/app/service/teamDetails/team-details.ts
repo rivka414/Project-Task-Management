@@ -1,13 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
+import { environment } from '../../../enviroment/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TeamDetailsService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:3000/api/projects';
+  private apiUrl = `${environment.apiUrl}/api/projects`;
 
   // פונקציה שמביאה את כל הפרויקטים ומסננת לפי צוות
 getProjectsByTeam(teamId: string): Observable<any[]> {

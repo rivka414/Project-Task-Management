@@ -1,13 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
+import { environment } from '../../../enviroment/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskDetails {
  private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:3000/api/tasks';
+  private apiUrl = `${environment.apiUrl}/api/tasks`;
 
   private getHeaders() {
     const token = localStorage.getItem('token');

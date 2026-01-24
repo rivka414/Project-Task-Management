@@ -1,14 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../enviroment/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CommentsTaskService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:3000/api/comments'; // וודאי שזה ה-URL הנכון של ה-API שלך
-
+private apiUrl = `${environment.apiUrl}`;
   // פונקציה לקבלת כותרות עם Token (במידה ויש אבטחה)
   private getHeaders() {
     const token = localStorage.getItem('token');
@@ -17,7 +17,7 @@ export class CommentsTaskService {
 
   // שליפת כל ההערות עבור משימה ספציפית
   getComments(taskId: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}?taskId=${taskId}`, { headers: this.getHeaders() });
+    return this.http.get<any[]>(`${this.apiUrl}/api/comments?taskId=${taskId}`, { headers: this.getHeaders() });
   }
 
 addComment(taskId: string, content: string): Observable<any> {
@@ -34,6 +34,6 @@ addComment(taskId: string, content: string): Observable<any> {
   };
 
 
-  return this.http.post(`http://localhost:3000/api/comments`, payload, { headers });
+  return this.http.post(`${this.apiUrl}/api/comments`, payload, { headers });
 }
 }
