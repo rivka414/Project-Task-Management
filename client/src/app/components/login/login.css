@@ -1,0 +1,203 @@
+/* רקע כללי בהיר ומזמין */
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f0f4f8;
+  overflow: hidden;
+  position: relative;
+  font-family: 'Assistant', sans-serif;
+  direction: rtl;
+}
+
+/* בועות רקע צבעוניות לאנימציה */
+.blob {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: linear-gradient(135deg, rgba(122, 220, 255, 0.4) 0%, rgba(175, 158, 255, 0.4) 100%);
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 0;
+  animation: float 20s infinite alternate;
+}
+.blob.second {
+  right: -100px;
+  bottom: -100px;
+  background: linear-gradient(135deg, rgba(255, 182, 193, 0.3) 0%, rgba(255, 255, 150, 0.3) 100%);
+  animation-delay: -5s;
+}
+
+/* כרטיס הזכוכית */
+.auth-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 450px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  padding: 50px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+  animation: cardIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.auth-title {
+  font-size: 32px;
+  font-weight: 800;
+  color: #2d3748;
+  margin-bottom: 8px;
+  background: linear-gradient(to left, #4facfe 0%, #00f2fe 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  color: #718096;
+  margin-bottom: 40px;
+  font-size: 16px;
+}
+
+/* שדות קלט בסגנון מודרני */
+.form-field {
+  position: relative;
+  margin-bottom: 35px;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #2d3748;
+  border: none;
+  border-bottom: 2px solid #e2e8f0;
+  background: transparent;
+  transition: all 0.3s;
+}
+
+.auth-input:focus {
+  outline: none;
+}
+
+/* אנימציית לייבל צף */
+.form-field label {
+  position: absolute;
+  right: 0;
+  top: 10px;
+  color: #a0aec0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.auth-input:focus ~ label,
+.auth-input:not(:placeholder-shown) ~ label {
+  top: -20px;
+  font-size: 13px;
+  color: #4facfe;
+  font-weight: 700;
+}
+
+.input-line {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(to left, #4facfe, #00f2fe);
+  transition: width 0.4s ease;
+}
+
+.auth-input:focus ~ .input-line {
+  width: 100%;
+}
+
+/* כפתור הקסם */
+.magic-btn {
+  position: relative;
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 15px;
+  background: #2d3748;
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.magic-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.magic-btn:active {
+  transform: translateY(-1px);
+}
+
+.btn-text {
+  position: relative;
+  z-index: 2;
+}
+
+.magic-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
+}
+
+.magic-btn:hover::before {
+  left: 100%;
+}
+
+/* אנימציות */
+@keyframes float {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(40px, 40px); }
+}
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.switch-mode {
+  background: none;
+  border: none;
+  margin-top: 25px;
+  color: #718096;
+  cursor: pointer;
+  width: 100%;
+  font-size: 15px;
+}
+
+.switch-mode strong {
+  color: #4facfe;
+  text-decoration: underline;
+}
+
+/******/
+/* הוסיפו לקובץ ה-CSS הקיים */
+.magic-btn:active {
+  transform: scale(0.95);
+  filter: brightness(1.2);
+}
+
+/* אפקט הבהוב עדין כשהטופס מוכן לשליחה */
+.magic-btn:not(:disabled) {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(79, 172, 254, 0.4); }
+  70% { box-shadow: 0 0 0 15px rgba(79, 172, 254, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(79, 172, 254, 0); }
+}

@@ -1,0 +1,39 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class CommentsTaskService {
+  private http = inject(HttpClient);
+  private apiUrl = 'http://localhost:3000/api/comments'; // וודאי שזה ה-URL הנכון של ה-API שלך
+
+  // פונקציה לקבלת כותרות עם Token (במידה ויש אבטחה)
+  private getHeaders() {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  }
+
+  // שליפת כל ההערות עבור משימה ספציפית
+  getComments(taskId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}?taskId=${taskId}`, { headers: this.getHeaders() });
+  }
+
+addComment(taskId: string, content: string): Observable<any> {
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  });
+  
+  // שינוי השם ל-body כפי שהשרת מצפה
+  const payload = { 
+    taskId: Number(taskId), 
+    body: content // כאן היה רשום content, שינינו ל-body
+  };
+
+
+  return this.http.post(`http://localhost:3000/api/comments`, payload, { headers });
+}
+}

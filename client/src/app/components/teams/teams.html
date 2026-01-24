@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="header-section">
+        <h2>הצוותים שלי</h2>
+        <button class="toggle-btn" (click)="showCreateTeamForm = !showCreateTeamForm">
+            @if(showCreateTeamForm) { ביטול } @else { + צור צוות חדש }
+        </button>
+    </div>
+
+    @if(showCreateTeamForm) {
+    <div class="create-team-card">
+        <input type="text" [(ngModel)]="newTeamName" placeholder="הכנס שם צוות..." class="team-input">
+        <button class="add-btn" (click)="createTeam()">אישור והוספה</button>
+    </div>
+    }
+
+    <hr class="divider">
+
+    <div class="list-section">
+        @if (teams().length > 0) {
+        <ul class="team-list">
+            @for (team of teams(); track team.id) {
+            <li class="team-item">
+                <span class="team-name">{{ team.name }}</span>
+
+                <span class="members-badge">חברים: {{ team.membersCount }}</span>
+                <a class="details-link" [routerLink]="['/team-details', team.id]">
+                    לפרטי הקבוצה, משימות והוספת חברים
+                </a>
+            </li>
+            }
+        </ul>
+        } @else {
+        <div class="empty-state">
+            <p>אין צוותים להצגה כרגע.</p>
+        </div>
+        }
+    </div>
+</div>

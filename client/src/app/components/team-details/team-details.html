@@ -1,0 +1,53 @@
+<div class="details-container">
+  <header class="details-header">
+    <h1>ניהול צוות: {{ teamId() }}</h1>
+    <a routerLink="/teams" class="back-link">
+  <span class="arrow">→</span>
+  <span class="text">חזרה לצוותים</span>
+</a>
+  </header>
+
+  <section class="admin-card">
+    <h3>הוספת חבר חדש</h3>
+    <div class="input-group">
+      <input type="text" [(ngModel)]="newMemberId" placeholder="הכנס מזהה משתמש (User ID)" class="id-input">
+      <button (click)="addMember()" class="action-btn">הוסף לצוות</button>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section class="projects-section">
+    <div class="projects-header">
+      <h2>פרויקטים בצוות זה</h2>
+      
+      <button class="toggle-btn" (click)="showCreateProjectForm.set(!showCreateProjectForm())">
+        {{ showCreateProjectForm() ? 'ביטול' : '+ פרויקט חדש' }}
+      </button>
+    </div>
+
+    @if (showCreateProjectForm()) {
+      <div class="create-card animate-fade-in">
+        <div class="form-group">
+          <input type="text" [(ngModel)]="newProjectName" placeholder="שם הפרויקט..." class="form-input">
+          <textarea [(ngModel)]="newProjectDescription" placeholder="תאור הפרויקט (אופציונלי)..." class="form-input" rows="2"></textarea>
+          <button (click)="createProject()" class="action-btn">צור פרויקט וסגור</button>
+        </div>
+      </div>
+    }
+    
+    @if (projects().length > 0) {
+      <div class="projects-grid">
+        @for (project of projects(); track project.id) {
+          <div class="project-card">
+            <h4>{{ project.name }}</h4>
+            <p>{{ project.description || 'אין תיאור לפרויקט' }}</p>
+            <button class="view-tasks-btn" [routerLink]="['/show-tasks', project.id]">צפה במשימות</button>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="empty-state">לא נמצאו פרויקטים לצוות זה.</div>
+    }
+  </section>
+</div>

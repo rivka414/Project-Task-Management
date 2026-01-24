@@ -1,0 +1,63 @@
+<!-- <header class="header">
+  <div class="logo">WolfTasks</div>
+
+  @if (isLoggedIn$ | async) {
+    <nav class="nav">
+      @for (link of links; track link.path) {
+        <a [routerLink]="link.path">{{ link.label }}</a>
+      }
+    </nav>
+
+    @if (user$ | async; as user) {
+  <div class="user">
+    <span>👤 {{ user.name }}</span>
+    <button (click)="logout()">Logout</button>
+  </div>
+}
+  } @else {
+    <div class="guest">
+      <span>Not connected</span>
+      <a routerLink="/login">Login</a>
+    </div>
+  }
+</header> -->
+
+
+<header class="header">
+  <div class="header-container">
+    <div class="logo">
+      <span class="logo-icon">🐺</span>
+      <span class="logo-text">Wolf<span class="accent">Tasks</span></span>
+    </div>
+
+    @if (isLoggedIn$ | async) {
+      <nav class="nav">
+        @for (link of links; track link.path) {
+          <a [routerLink]="link.path" routerLinkActive="active-link" class="nav-item">
+            {{ link.label }}
+          </a>
+        }
+      </nav>
+
+      <div class="user-area">
+        @if (user$ | async; as user) {
+          <div class="user-info">
+            <div class="avatar">
+              {{ user.name.charAt(0).toUpperCase() }}
+            </div>
+            <span class="user-name">שלום, {{ user.name }}</span>
+          </div>
+        }
+        <button class="logout-btn" (click)="logout()">
+          יציאה
+          <span class="icon">logout</span>
+        </button>
+      </div>
+    } @else {
+      <div class="guest-area">
+        <span class="status-msg">אורח במערכת</span>
+        <a routerLink="/login" class="login-link">התחברות</a>
+      </div>
+    }
+  </div>
+</header>

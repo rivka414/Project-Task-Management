@@ -1,0 +1,23 @@
+<footer class="jira-footer">
+  <div class="footer-container">
+    <div class="footer-section left">
+      <span class="brand-name">Wolf<strong>Tasks</strong></span>
+      <span class="system-status">
+        <span class="status-indicator"></span> מערכת תקינה
+      </span>
+    </div>
+
+    <div class="footer-section center">
+      <nav class="footer-nav">
+        <a href="#" (click)="handleNavigation($event, '/tasks')">לוח משימות</a>
+        <a href="#" (click)="handleNavigation($event, '/problems')">דיווח באגים</a>
+        <a href="#" (click)="handleNavigation($event, '/guides')">מדריכים</a>
+        <a href="using">תנאי שימוש</a> </nav>
+    </div>
+
+    <div class="footer-section right">
+      <span class="version">v1.0.4</span>
+      <p class="copyright">&copy; 2024 WolfTasks</p>
+    </div>
+  </div>
+</footer>

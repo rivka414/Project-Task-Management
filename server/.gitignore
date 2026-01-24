@@ -1,0 +1,20 @@
+# Dependency directories
+node_modules/
+
+# Environment variables (רגיש מאוד!)
+.env
+.env.local
+.env.production
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Debug
+.vscode/
+.vimspector.json
+
+# Build output (אם אתה משתמש ב-TypeScript)
+dist/
+build/

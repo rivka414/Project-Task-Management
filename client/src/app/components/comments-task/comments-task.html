@@ -1,0 +1,29 @@
+<div class="comments-page">
+  <div class="header">
+    <button class="back-btn" [routerLink]="['/show-tasks', projectId()]">⬅️ חזרה</button>
+    <h1>הערות למשימה #{{ taskId() }}</h1>
+  </div>
+
+  <div class="add-comment-box">
+    <textarea [ngModel]="newCommentText()" (ngModelChange)="newCommentText.set($event)"
+      placeholder="כתבו הערה חדשה..." rows="3"></textarea>
+    <button class="send-btn" (click)="sendComment()" [disabled]="!newCommentText()?.trim()">
+      שלח הערה 🚀
+    </button>
+  </div>
+
+  <div class="comments-container">
+    <div class="comments-list">
+      @for (comment of comments(); track comment.id) {
+        <div class="comment-bubble">
+          <div class="comment-meta">
+            <span class="user-name">👤 {{ comment.user?.name || 'חבר צוות' }}</span>
+            <span class="date">{{ comment.createdAt | date:'HH:mm dd/MM' }}</span>
+          </div>
+          <p class="comment-text">{{ comment.body }}</p>
+        </div>
+      }
+      <div id="bottom-of-comments"></div>
+    </div>
+  </div>
+</div>

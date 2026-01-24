@@ -1,0 +1,151 @@
+.details-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  direction: rtl;
+}
+
+.details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.admin-card {
+  background: #f0f7ff;
+  border: 1px solid #c3dafe;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.id-input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #a3bffa;
+  border-radius: 6px;
+}
+
+.action-btn {
+  background: #2b6cb0;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.project-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: transform 0.2s;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  border-color: #3182ce;
+}
+
+.view-tasks-btn {
+  width: 100%;
+  margin-top: 15px;
+  background: transparent;
+  color: #3182ce;
+  border: 1px solid #3182ce;
+  padding: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  font-family: inherit;
+  resize: none; /* מונע מהמשתמש לשנות את גודל תיבת הטקסט בצורה ידנית */
+}
+
+.form-input:focus {
+  border-color: #3182ce;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+}
+.projects-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.toggle-btn {
+  background-color: #ebf8ff;
+  color: #2b6cb0;
+  border: 1px solid #bee3f8;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #4a5568; /* אפור כהה ניטרלי */
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 8px 16px;
+  border-radius: 50px; /* קצוות מעוגלים מאוד (Pill shape) */
+  background-color: #f7fafc;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.back-link .arrow {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+/* אפקט ריחוף (Hover) */
+.back-link:hover {
+  background-color: #ebf8ff; /* תכלת בהיר מאוד */
+  color: #2b6cb0; /* כחול כהה יותר */
+  border-color: #bee3f8;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* הנפשת החץ - ב-RTL הוא יזוז מעט ימינה */
+.back-link:hover .arrow {
+  transform: translateX(5px);
+}
+
+/* עיצוב אופציונלי לטקסט */
+.back-link .text {
+  position: relative;
+}
