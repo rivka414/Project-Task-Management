@@ -20,8 +20,8 @@ export class Header {
 
   links = [
     { label: 'Teams', path: '/teams' },
-    { label: 'Projects', path: '/projects' },
-    { label: 'Tasks', path: '/tasks' },
+     { label: 'home', path: '/home' },
+    // { label: 'Tasks', path: '/tasks' },
   ];
 
   constructor(private store: Store) {

@@ -53,7 +53,7 @@ export class Login {
         next: (res) => {
           this.store.dispatch(loginSuccess({ user: res.user, token: res.token }));
           this.launchConfetti();
-          this.router.navigate(['/teams']);
+          this.router.navigate(['/home']);
         },
         error: () => alert('שגיאה בהרשמה- האימייל כבר קיים')
       });
@@ -62,7 +62,7 @@ export class Login {
         next: (res) => {
           this.store.dispatch(loginSuccess({ user: res.user, token: res.token }));
           this.launchConfetti();
-          this.router.navigate(['/teams']);
+          this.router.navigate(['/home']);
         },
         error: () => alert('אימייל או סיסמה שגויים')
       });

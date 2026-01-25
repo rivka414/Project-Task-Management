@@ -1,0 +1,175 @@
+:host {
+  --primary-blue: #0056b3;
+  --light-blue: #eef4ff;
+  --text-dark: #1a2b3c;
+  --text-muted: #5a6d80;
+  --bg-white: #ffffff;
+  display: block;
+  min-height: 100vh;
+  background-color: #f8fbff;
+}
+
+.home-wrapper {
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  direction: rtl;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+/* Hero Section */
+.main-hero {
+  background: white;
+  padding: 80px 50px;
+  border-radius: 32px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 86, 179, 0.05);
+  border: 1px solid rgba(0, 86, 179, 0.08);
+  margin-bottom: 50px;
+}
+
+.badge {
+  background: var(--light-blue);
+  color: var(--primary-blue);
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 24px;
+}
+
+.main-hero h1 {
+  font-size: 3.5rem;
+  color: var(--text-dark);
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
+
+.highlight {
+  color: var(--primary-blue);
+}
+
+.main-hero p {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  max-width: 700px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+}
+
+/* Buttons */
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+/* עדכון לקלאסים הקיימים */
+.btn-main{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none; /* מבטל קו תחתון של קישור */
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 16px 32px;
+  white-space: nowrap; /* מונע מהטקסט לרדת שורה בתוך הכפתור */
+}
+
+.btn-main {
+  background: var(--primary-blue);
+  color: white !important; /* מבטיח צבע לבן גם אם יש הגדרות גלובליות לקישורים */
+  border: none;
+}
+
+
+.btn-main:hover {
+  background: #004494;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 86, 179, 0.2);
+  color: white !important;
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 60px 0;
+}
+
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #e0e6ed;
+}
+
+.divider span {
+  padding: 0 20px;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Features Grid */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+.feature-card {
+  background: white;
+  padding: 40px;
+  border-radius: 24px;
+  border: 1px solid #f0f3f7;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  cursor: pointer;
+  position: relative;
+}
+
+.feature-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.04);
+  border-color: var(--primary-blue);
+}
+
+.card-icon {
+  width: 60px;
+  height: 60px;
+  background: var(--light-blue);
+  color: var(--primary-blue);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.card-icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+.feature-card h3 {
+  font-size: 1.5rem;
+  color: var(--text-dark);
+  margin-bottom: 16px;
+}
+
+.feature-card p {
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.card-link {
+  font-weight: 600;
+  color: var(--primary-blue);
+  font-size: 0.95rem;
+}
