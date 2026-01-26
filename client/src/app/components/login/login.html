@@ -1,4 +1,4 @@
-<div class="page-wrapper">
+<!-- <div class="page-wrapper">
   <div class="blob"></div>
   <div class="blob second"></div>
 
@@ -44,6 +44,76 @@
         @if(isRegister){ כבר חלק מהקהילה? <strong>התחבר</strong> } 
         @else { חדש כאן? <strong>צור חשבון בחינם</strong> }
       </button>
+    </div>
+  </div>
+</div> -->
+
+<div class="page-wrapper">
+  <div class="blob"></div>
+  <div class="blob second"></div>
+
+  <div class="auth-card">
+    <div class="glass-header">
+      <h2 class="auth-title">
+        @if (isRegister) { <span>הצטרפו אלינו</span> } @else { <span>שמחים שחזרתם</span> }
+      </h2>
+      <p class="subtitle">מנהלים את המשימות בראש שקט. מצטרפים עכשיו</p>
+    </div>
+
+    <form [formGroup]="authForm" (ngSubmit)="submit()" class="auth-form">
+
+      @if (isRegister) {
+        <div class="form-field">
+          <input type="text" formControlName="name" class="auth-input" placeholder=" " id="name">
+          <label for="name">שם מלא</label>
+          <div class="input-line"></div>
+          
+          @if (authForm.get('name')?.invalid && authForm.get('name')?.touched) {
+            <small class="error-text">שדה שם הוא חובה</small>
+          }
+        </div>
+      }
+
+      <div class="form-field">
+        <input type="email" formControlName="email" class="auth-input" placeholder=" " id="email">
+        <label for="email">כתובת אימייל</label>
+        <div class="input-line"></div>
+        
+        @if (authForm.get('email')?.invalid && authForm.get('email')?.touched) {
+          <div class="error-container">
+            @if (authForm.get('email')?.errors?.['required']) { <small class="error-text">אימייל הוא שדה חובה</small> }
+            @if (authForm.get('email')?.errors?.['email']) { <small class="error-text">כתובת אימייל אינה תקינה</small> }
+          </div>
+        }
+      </div>
+
+      <div class="form-field">
+        <input type="password" formControlName="password" class="auth-input" placeholder=" " id="pass">
+        <label for="pass">סיסמה</label>
+        <div class="input-line"></div>
+        
+        @if (authForm.get('password')?.invalid && authForm.get('password')?.touched) {
+          <div class="error-container">
+            @if (authForm.get('password')?.errors?.['required']) { <small class="error-text">סיסמה היא שדה חובה</small> }
+            @if (authForm.get('password')?.errors?.['minlength']) { <small class="error-text">לפחות 6 תווים</small> }
+          </div>
+        }
+      </div>
+
+      <button type="submit" class="magic-btn" [disabled]="authForm.invalid">
+        <span class="btn-text">@if(isRegister){ יוצאים לדרך } @else { כניסה מהירה }</span>
+        <div class="btn-blob"></div>
+      </button>
+
+    </form>
+
+    <div class="auth-footer">
+      <button type="button" class="switch-mode" (click)="toggleMode()">
+        @if(isRegister){ כבר חלק מהקהילה? <strong>התחבר</strong> } 
+        @else { חדש כאן? <strong>צור חשבון בחינם</strong> }
+      </button>
+
+      
     </div>
   </div>
 </div>
