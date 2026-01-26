@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
+import { TaskDetails } from './task-details';
 
-import { TaskDetails } from '../task-details';
+
 
 describe('TaskDetails', () => {
   let service: TaskDetails;

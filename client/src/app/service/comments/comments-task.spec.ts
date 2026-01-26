@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
+import { CommentsTask } from '../../components/comments-task/comments-task';
 
-import { CommentsTask } from './comments-task';
+
 
 describe('CommentsTask', () => {
   let service: CommentsTask;
