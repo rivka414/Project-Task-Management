@@ -13,9 +13,9 @@ interface Team {
   providedIn: 'root',
 })
 export class TeamsService {
-   private apiUrl = `${environment.apiUrl}/api/teams`;
+  private apiUrl = `${environment.apiUrl}/api/teams`;
 
-   private http=inject(HttpClient);
+  private http = inject(HttpClient);
 
   getTeams(token: string): Observable<Team[]> {
     const headers = new HttpHeaders({
@@ -24,14 +24,14 @@ export class TeamsService {
     return this.http.get<Team[]>(this.apiUrl, { headers });
   }
   createTeam(name: string, token: string) {
-  const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-  return this.http.post<any>('http://localhost:3000/api/teams', { name }, { headers });
-}
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+    return this.http.post<any>(this.apiUrl, { name }, { headers });
+  }
 
-addMemberToTeam(teamId: string, userId: string) {
+  addMemberToTeam(teamId: string, userId: string) {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    
+
     // הנתיב לפי ה-API שקיבלת: /api/teams/:teamId/members
     return this.http.post(`${this.apiUrl}/${teamId}/members`, { userId }, { headers });
   }
