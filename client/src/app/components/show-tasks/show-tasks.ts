@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TaskDetails } from '../../service/taskDetails/task-details';
 import { CommonModule } from '@angular/common';
@@ -6,17 +6,56 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-show-tasks',
-  imports: [CommonModule, RouterLink,FormsModule],
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './show-tasks.html',
   styleUrl: './show-tasks.css',
 })
-export class ShowTasks implements OnInit{
-private route = inject(ActivatedRoute);
+export class ShowTasks implements OnInit {
+
+  filterStatus = signal<string>('all');
+  sortBy = signal<string>('date');
+
+  filteredTasks = computed(() => {
+    let list = [...this.tasks()];
+
+    // 1. סינון לפי סטטוס
+    if (this.filterStatus() !== 'all') {
+      list = list.filter(t => t.status === this.filterStatus());
+    }
+
+    // 2. מיון
+    list.sort((a, b) => {
+      if (this.sortBy() === 'date') {
+        return new Date(a.due_date).getTime() - new Date(b.due_date).getTime();
+      } else {
+        // מיון לפי דחיפות (High -> Normal -> Low)
+        const priorityOrder: any = { 'high': 1, 'normal': 2, 'low': 3 };
+        return priorityOrder[a.priority] - priorityOrder[b.priority];
+      }
+    });
+
+    return list;
+  });
+  isUrgent(dueDate: string, status: string): boolean {
+  // אם המשימה הושלמה, היא לא דחופה יותר
+  if (status === 'completed') return false;
+  
+  if (!dueDate) return false;
+  const now = new Date();
+  const targetDate = new Date(dueDate);
+  const diffInMs = targetDate.getTime() - now.getTime();
+  const diffInHours = diffInMs / (1000 * 60 * 60);
+
+  // מחזיר אמת אם התאריך בטווח של 24 השעות הקרובות וטרם עבר זמן רב מדי
+  return diffInHours > -2 && diffInHours <= 24;
+}
+
+  private route = inject(ActivatedRoute);
   private taskService = inject(TaskDetails);
 
   projectId = signal<string>('');
   tasks = signal<any[]>([]);
-  
+
   // ניהול הטופס למשימה חדשה באמצעות אובייקט אחד
   newTask = signal({
     title: '',
@@ -36,7 +75,7 @@ private route = inject(ActivatedRoute);
       this.projectId.set(id);
       this.loadTasks();
     }
-    
+
   }
 
   loadTasks() {
@@ -46,54 +85,54 @@ private route = inject(ActivatedRoute);
   }
 
   addTask() {
-  const currentTask = this.newTask();
+    const currentTask = this.newTask();
 
-  // בדיקת חובה לכל השדות
-  if (!currentTask.title.trim()) {
-    this.errorMessage.set('נא להזין כותרת למשימה');
-    return;
+    // בדיקת חובה לכל השדות
+    if (!currentTask.title.trim()) {
+      this.errorMessage.set('נא להזין כותרת למשימה');
+      return;
+    }
+
+    if (!currentTask.description.trim()) {
+      this.errorMessage.set('נא להזין תיאור למשימה');
+      return;
+    }
+
+    if (!currentTask.priority) {
+      this.errorMessage.set('נא לבחור רמת עדיפות');
+      return;
+    }
+
+    if (!currentTask.dueDate) {
+      this.errorMessage.set('נא לבחור תאריך יעד');
+      return;
+    }
+
+    // בדיקת תקינות תאריך (שלא עבר)
+    const selectedDate = new Date(currentTask.dueDate);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (selectedDate < today) {
+      this.errorMessage.set('תאריך היעד לא יכול להיות בעבר');
+      return;
+    }
+
+    // אם הכל תקין - שליחה לשרת
+    const payload = {
+      ...currentTask,
+      projectId: Number(this.projectId()),
+      orderIndex: 0
+    };
+
+    this.taskService.createTask(payload).subscribe({
+      next: () => {
+        this.loadTasks();
+        this.resetForm();
+      },
+      error: () => this.errorMessage.set('שגיאה בשמירת המשימה')
+    });
   }
-  
-  if (!currentTask.description.trim()) {
-    this.errorMessage.set('נא להזין תיאור למשימה');
-    return;
-  }
-
-  if (!currentTask.priority) {
-    this.errorMessage.set('נא לבחור רמת עדיפות');
-    return;
-  }
-
-  if (!currentTask.dueDate) {
-    this.errorMessage.set('נא לבחור תאריך יעד');
-    return;
-  }
-
-  // בדיקת תקינות תאריך (שלא עבר)
-  const selectedDate = new Date(currentTask.dueDate);
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  if (selectedDate < today) {
-    this.errorMessage.set('תאריך היעד לא יכול להיות בעבר');
-    return;
-  }
-
-  // אם הכל תקין - שליחה לשרת
-  const payload = {
-    ...currentTask,
-    projectId: Number(this.projectId()),
-    orderIndex: 0
-  };
-
-  this.taskService.createTask(payload).subscribe({
-    next: () => {
-      this.loadTasks();
-      this.resetForm();
-    },
-    error: () => this.errorMessage.set('שגיאה בשמירת המשימה')
-  });
-}
 
   // עדכון סטטוס או עדיפות (PATCH)
   updateTaskField(taskId: string, field: string, value: string) {

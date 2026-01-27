@@ -29,9 +29,9 @@
             <label>עדיפות <span class="required">*</span></label>
             <select [(ngModel)]="newTask().priority">
               <option value="" disabled selected>בחרו עדיפות...</option>
-              <option value="low">Low - נמוכה</option>
-              <option value="normal">Normal - רגילה</option>
-              <option value="high">High - גבוהה</option>
+              <option value="low">נמוכה</option>
+              <option value="normal">רגילה</option>
+              <option value="high">גבוהה</option>
             </select>
           </div>
 
@@ -42,9 +42,7 @@
         </div>
 
         @if (errorMessage()) {
-          <div class="error-banner">
-            ⚠️ {{ errorMessage() }}
-          </div>
+          <div class="error-banner">⚠️ {{ errorMessage() }}</div>
         }
 
         <div class="form-actions">
@@ -56,19 +54,42 @@
     </div>
   }
 
+  <div class="filters-bar">
+    <div class="filter-group">
+      <label>סנן לפי סטטוס:</label>
+      <select [ngModel]="filterStatus()" (ngModelChange)="filterStatus.set($event)">
+        <option value="all">הכל</option>
+        <option value="todo">לביצוע</option>
+        <option value="in_progress">בביצוע</option>
+        <option value="completed">הושלם</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>מיין לפי:</label>
+      <select [ngModel]="sortBy()" (ngModelChange)="sortBy.set($event)">
+        <option value="date">תאריך יעד (קרוב לרחוק)</option>
+        <option value="priority">רמת דחיפות</option>
+      </select>
+    </div>
+  </div>
+
   <div class="task-grid">
-    @for (task of tasks(); track task.id) {
+    @for (task of filteredTasks(); track task.id) {
       <div class="task-card" [attr.data-priority]="task.priority">
         <div class="task-header">
           <span class="priority-label">{{ task.priority }}</span>
-          @if (task.dueDate) {
-            <span class="due-date">📅 {{ task.dueDate | date:'dd/MM/yy' }}</span>
-          }
         </div>
 
         <div class="task-body">
           <h3>{{ task.title }}</h3>
-          <p>{{ task.description || 'אין תיאור למשימה זו' }}</p>
+          <p class="description">{{ task.description || 'אין תיאור למשימה זו' }}</p>
+          
+       <div class="task-date-inline" [class.urgent-blink]="isUrgent(task.due_date,task.status)">
+  <span class="calendar-icon">📅</span>
+  <span class="date-label">תאריך יעד:</span>
+  <span class="date-value">{{ task.due_date | date:'dd/MM/yyyy' }}</span>
+</div>
           
           <button class="comments-link-btn" [routerLink]="['/comments-task', task.id]">
              לפרטים והערות 💬

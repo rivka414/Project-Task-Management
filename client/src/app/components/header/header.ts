@@ -16,12 +16,11 @@ import { logout } from '../../store/actions';
 export class Header {
   isLoggedIn$: Observable<boolean>;
   user$: Observable<User | null>;
-  private router=inject(Router);
+  private router = inject(Router);
 
   links = [
-    { label: 'Teams', path: '/teams' },
-     { label: 'home', path: '/home' },
-    // { label: 'Tasks', path: '/tasks' },
+    { label: 'home', path: '/home' },
+    { label: 'Teams', path: '/teams' }
   ];
 
   constructor(private store: Store) {

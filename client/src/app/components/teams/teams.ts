@@ -3,12 +3,13 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { TeamsService } from '../../service/teams/teams-service';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
   selector: 'app-teams',
   standalone: true,
-  imports: [FormsModule,RouterLink],
+  imports: [FormsModule,RouterLink,DatePipe],
   templateUrl: './teams.html',
   styleUrls: ['./teams.css'],
 })
@@ -19,10 +20,6 @@ export class Teams implements OnInit {
   newTeamName: string = '';
   private teamsService = inject(TeamsService);
 
-  // // Getter חוקי ל־template
-  // get teamsList() {
-  //   return this.teams();
-  // }
 
   ngOnInit(): void {
     this.token = localStorage.getItem('token') || '';

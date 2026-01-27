@@ -318,3 +318,110 @@
   color: #2563eb;
   transform: translateY(-1px);
 }
+
+
+
+.task-body {
+    padding: 10px 0;
+}
+
+.task-body h3 {
+    margin: 0 0 8px 0;
+    color: #004a99;
+}
+
+.description {
+    font-size: 0.95em;
+    color: #666;
+    margin-bottom: 12px;
+}
+
+/* העיצוב החדש של התאריך המשולב */
+.task-date-inline {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background-color: #f0f7ff; /* רקע תכלת עדין */
+    padding: 6px 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    border-right: 3px solid #0056b3; /* פס כחול בצד להדגשה */
+    font-size: 0.9em;
+}
+
+.date-label {
+    font-weight: bold;
+    color: #444;
+}
+
+.date-value {
+    color: #0056b3;
+    font-weight: 500;
+}
+
+.comments-link-btn {
+    background: none;
+    border: none;
+    color: #0056b3;
+    cursor: pointer;
+    font-size: 0.85em;
+    padding: 0;
+    text-decoration: underline;
+}
+
+.filters-bar {
+    display: flex;
+    gap: 20px;
+    background: #f0f4f8;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #d1e3f8;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-group label {
+    font-weight: bold;
+    color: #004a99;
+}
+
+.filter-group select {
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+/* הדגשת תאריך היעד */
+.due-date {
+    font-weight: 500;
+    color: #555;
+    background: #fff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+/* עיצוב למשימה דחופה */
+.urgent-blink {
+    background-color: #fff0f0 !important; /* רקע אדמדם עדין */
+    border-right: 4px solid #ff0000 !important; /* פס אדום בולט */
+    animation: blink-animation 1.5s infinite; /* הפעלת האנימציה */
+}
+
+.urgent-blink .date-value, 
+.urgent-blink .calendar-icon {
+    color: #ff0000;
+    font-weight: bold;
+}
+
+/* הגדרת האנימציה של ההבהוב */
+@keyframes blink-animation {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}

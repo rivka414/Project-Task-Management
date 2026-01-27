@@ -1,152 +1,138 @@
-:host {
-  display: block;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  direction: rtl;
-  background-color: #f0f4f8;
-  min-height: 100vh;
-  padding: 20px;
-}
-
+/* הגדרות כלליות למכולה */
 .container {
-  max-width: 600px;
-  margin: 0 auto;
-  background: white;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    direction: rtl; /* יישור לימין */
+    background-color: #f9fbfd;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
+/* כותרת וכפתור הוספה */
 .header-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-h2 {
-  color: #1a365d; /* כחול כהה */
-  margin: 0;
+.header-section h2 {
+    color: #004a99; /* כחול כהה */
+    margin: 0;
 }
 
-/* כפתור עליון */
 .toggle-btn {
-  background-color: #ebf8ff;
-  color: #2b6cb0;
-  border: 1px solid #bee3f8;
-  padding: 8px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
 }
 
 .toggle-btn:hover {
-  background-color: #2b6cb0;
-  color: white;
+    background-color: #003d80;
 }
 
-/* כרטיס יצירת צוות */
+/* כרטיס יצירת צוות חדש */
 .create-team-card {
-  background: #f7fafc;
-  padding: 15px;
-  border-radius: 10px;
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  border: 1px dashed #cbd5e0;
+    background-color: #ffffff;
+    padding: 15px;
+    border: 1px solid #d1e3f8;
+    border-radius: 6px;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
 .team-input {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  outline: none;
+    flex-grow: 1;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
 }
 
 .team-input:focus {
-  border-color: #4299e1;
+    border-color: #0056b3;
 }
 
 .add-btn {
-  background-color: #3182ce;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
+    background-color: #28a745; /* ירוק אישור או כחול לפי בחירתך */
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* קו מפריד */
+.divider {
+    border: 0;
+    border-top: 1px solid #e0e0e0;
+    margin: 20px 0;
 }
 
 /* רשימת הצוותים */
 .team-list {
-  list-style: none;
-  padding: 0;
+    list-style: none;
+    padding: 0;
 }
 
 .team-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px;
-  border-bottom: 1px solid #edf2f7;
-  transition: background 0.2s;
+    background-color: #ffffff;
+    border: 1px solid #eef2f7;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: transform 0.2s;
 }
 
 .team-item:hover {
-  background-color: #f1f7ff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background-color: #f0f7ff;
 }
 
 .team-name {
-  color: #2d3748;
-  font-weight: 500;
+    font-weight: bold;
+    color: #333;
+    flex: 2; /* נותן לשם הצוות יותר שטח */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .members-badge {
-  background: #e2e8f0;
-  color: #4a5568;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-}
-
-.divider {
-  border: 0;
-  border-top: 1px solid #edf2f7;
-  margin: 20px 0;
-}
-
-.empty-state {
-  text-align: center;
-  color: #a0aec0;
-  padding: 40px 0;
+    background-color: #e7f1ff;
+    color: #0056b3;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    min-width: 80px;
+    text-align: center;
 }
 
 .details-link {
-  color: #3182ce; /* כחול אנגולר/נטפרי */
-  text-decoration: none; /* ביטול קו תחתי כברירת מחדל */
-  font-weight: 500;
-  font-size: 0.95rem;
-  padding: 5px 10px;
-  border-radius: 4px;
-  transition: all 0.2s ease-in-out;
-  display: inline-flex;
-  align-items: center;
+    color: #0056b3;
+    text-decoration: none;
+    font-size: 0.9em;
+    border-bottom: 1px solid transparent;
 }
 
 .details-link:hover {
-  background-color: #ebf8ff; /* רקע תכלת עדין במעבר עכבר */
-  text-decoration: underline;
-  color: #2b6cb0;
+    border-bottom: 1px solid #0056b3;
 }
 
-/* הוספת חץ קטן אחרי הקישור באמצעות CSS */
-.details-link::after {
-  content: '←';
-  margin-right: 8px; /* בגלל שהדף ב-RTL */
-  transition: transform 0.2s;
-}
-
-.details-link:hover::after {
-  transform: translateX(-4px); /* הנפשה קלה של החץ */
+/* מצב ריק */
+.empty-state {
+    text-align: center;
+    color: #777;
+    padding: 40px;
 }

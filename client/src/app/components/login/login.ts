@@ -24,7 +24,11 @@ export class Login {
   isRegister = false;
   authForm: FormGroup;
   user$: Observable<any>;
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private authService: ServerCalls, private store: Store<AuthState>) {
+  private fb: FormBuilder = inject(FormBuilder);
+  private router = inject(Router);
+  private authService = inject(ServerCalls);
+  private store = inject(Store<AuthState>);
+  constructor() {
     this.authForm = this.fb.group({
       name: [''],
       email: ['', [Validators.required, Validators.email]],
