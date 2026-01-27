@@ -10,48 +10,48 @@
   </header>
 
   @if (showAddForm()) {
-    <div class="form-container animate-slide-down">
-      <div class="form-card">
-        <h3>יצירת משימה חדשה</h3>
-        
+  <div class="form-container animate-slide-down">
+    <div class="form-card">
+      <h3>יצירת משימה חדשה</h3>
+
+      <div class="input-group">
+        <label>כותרת המשימה <span class="required">*</span></label>
+        <input type="text" [(ngModel)]="newTask().title" placeholder="מה צריך לבצע?">
+      </div>
+
+      <div class="input-group">
+        <label>תיאור המשימה <span class="required">*</span></label>
+        <textarea [(ngModel)]="newTask().description" placeholder="פרטו קצת יותר..."></textarea>
+      </div>
+
+      <div class="form-row">
         <div class="input-group">
-          <label>כותרת המשימה <span class="required">*</span></label>
-          <input type="text" [(ngModel)]="newTask().title" placeholder="מה צריך לבצע?">
+          <label>עדיפות <span class="required">*</span></label>
+          <select [(ngModel)]="newTask().priority">
+            <option value="" disabled selected>בחרו עדיפות...</option>
+            <option value="low">נמוכה</option>
+            <option value="normal">רגילה</option>
+            <option value="high">גבוהה</option>
+          </select>
         </div>
 
         <div class="input-group">
-          <label>תיאור המשימה <span class="required">*</span></label>
-          <textarea [(ngModel)]="newTask().description" placeholder="פרטו קצת יותר..."></textarea>
-        </div>
-
-        <div class="form-row">
-          <div class="input-group">
-            <label>עדיפות <span class="required">*</span></label>
-            <select [(ngModel)]="newTask().priority">
-              <option value="" disabled selected>בחרו עדיפות...</option>
-              <option value="low">נמוכה</option>
-              <option value="normal">רגילה</option>
-              <option value="high">גבוהה</option>
-            </select>
-          </div>
-
-          <div class="input-group">
-            <label>תאריך יעד <span class="required">*</span></label>
-            <input type="date" [(ngModel)]="newTask().dueDate">
-          </div>
-        </div>
-
-        @if (errorMessage()) {
-          <div class="error-banner">⚠️ {{ errorMessage() }}</div>
-        }
-
-        <div class="form-actions">
-          <button class="confirm-btn" (click)="addTask()">
-            <span class="icon">✅</span> אישור ויצירת משימה
-          </button>
+          <label>תאריך יעד <span class="required">*</span></label>
+          <input type="date" [(ngModel)]="newTask().dueDate">
         </div>
       </div>
+
+      @if (errorMessage()) {
+      <div class="error-banner">⚠️ {{ errorMessage() }}</div>
+      }
+
+      <div class="form-actions">
+        <button class="confirm-btn" (click)="addTask()">
+          <span class="icon">✅</span> אישור ויצירת משימה
+        </button>
+      </div>
     </div>
+  </div>
   }
 
   <div class="filters-bar">
@@ -76,58 +76,58 @@
 
   <div class="task-grid">
     @for (task of filteredTasks(); track task.id) {
-      <div class="task-card" [attr.data-priority]="task.priority">
-        <div class="task-header">
-          <span class="priority-label">{{ task.priority }}</span>
+    <div class="task-card" [attr.data-priority]="task.priority">
+      <div class="task-header">
+        <span class="priority-label">{{ task.priority }}</span>
+      </div>
+
+      <div class="task-body">
+        <h3>{{ task.title }}</h3>
+        <p class="description">{{ task.description || 'אין תיאור למשימה זו' }}</p>
+
+        <div class="task-date-inline" [class.urgent-blink]="isUrgent(task.due_date,task.status)">
+          <span class="calendar-icon">📅</span>
+          <span class="date-label">תאריך יעד:</span>
+          <span class="date-value">{{ task.due_date | date:'dd/MM/yyyy' }}</span>
         </div>
 
-        <div class="task-body">
-          <h3>{{ task.title }}</h3>
-          <p class="description">{{ task.description || 'אין תיאור למשימה זו' }}</p>
-          
-       <div class="task-date-inline" [class.urgent-blink]="isUrgent(task.due_date,task.status)">
-  <span class="calendar-icon">📅</span>
-  <span class="date-label">תאריך יעד:</span>
-  <span class="date-value">{{ task.due_date | date:'dd/MM/yyyy' }}</span>
-</div>
-          
-          <button class="comments-link-btn" [routerLink]="['/comments-task', task.id]">
-             לפרטים והערות 💬
-          </button>
-        </div>
+        <button class="comments-link-btn" [routerLink]="['/comments-task', task.id]">
+          לפרטים והערות 💬
+        </button>
+      </div>
 
-        <div class="task-footer">
-          <div class="controls-group">
-            <div class="control-item">
-              <label>סטטוס:</label>
-              <select [ngModel]="task.status" (ngModelChange)="updateTaskField(task.id, 'status', $event)">
-                <option value="todo">לביצוע</option>
-                <option value="in_progress">בביצוע</option>
-                <option value="completed">הושלם</option>
-              </select>
-            </div>
-
-            <div class="control-item">
-              <label>עדיפות:</label>
-              <select [ngModel]="task.priority" (ngModelChange)="updateTaskField(task.id, 'priority', $event)">
-                <option value="low">נמוכה</option>
-                <option value="normal">רגילה</option>
-                <option value="high">גבוהה</option>
-              </select>
-            </div>
+      <div class="task-footer">
+        <div class="controls-group">
+          <div class="control-item">
+            <label>סטטוס:</label>
+            <select [ngModel]="task.status" (ngModelChange)="updateTaskField(task.id, 'status', $event)">
+              <option value="todo">לביצוע</option>
+              <option value="in_progress">בביצוע</option>
+              <option value="completed">הושלם</option>
+            </select>
           </div>
-          
-          <button class="delete-icon-btn" (click)="deleteTask(task.id)" title="מחיקת משימה">
-            🗑️
-          </button>
+
+          <div class="control-item">
+            <label>עדיפות:</label>
+            <select [ngModel]="task.priority" (ngModelChange)="updateTaskField(task.id, 'priority', $event)">
+              <option value="low">נמוכה</option>
+              <option value="normal">רגילה</option>
+              <option value="high">גבוהה</option>
+            </select>
+          </div>
         </div>
+
+        <button class="delete-icon-btn" (click)="deleteTask(task.id)" title="מחיקת משימה">
+          🗑️
+        </button>
       </div>
+    </div>
     } @empty {
-      <div class="empty-state">
-        <div class="empty-icon">📂</div>
-        <h3>אין עדיין משימות</h3>
-        <p>לחצו על "משימה חדשה" כדי להתחיל לעבוד.</p>
-      </div>
+    <div class="empty-state">
+      <div class="empty-icon">📂</div>
+      <h3>אין עדיין משימות</h3>
+      <p>לחצו על "משימה חדשה" כדי להתחיל לעבוד.</p>
+    </div>
     }
   </div>
 </div>
