@@ -61,10 +61,6 @@ GET /api/tasks?projectId=XXX – שליפת משימות לפי פרויקט
 Guards
 השימוש ב-AuthGuard מונע גישה למסכי הניהול עבור משתמשים שאינם מחוברים
 
-Models
-כל ממשקי הנתונים (Interfaces) מוגדרים תחת תיקיית models
-לצורך הבטחת Type-Safety
-(Task, Team, Project, User)
 
 Environment
 ניתן לשנות את כתובת השרת בקובץ:
