@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
@@ -22,8 +22,10 @@ import { selectAuthState } from '../../store/selector';
 })
 export class Login {
   isRegister = false;
+  isLoading = false;
   authForm: FormGroup;
   user$: Observable<any>;
+  private cdr = inject(ChangeDetectorRef);
   private fb: FormBuilder = inject(FormBuilder);
   private router = inject(Router);
   private authService = inject(ServerCalls);
@@ -50,28 +52,32 @@ export class Login {
     this.authForm.get('name')?.updateValueAndValidity();
   }
   submit() {
-    if (this.authForm.invalid) return;
+  if (this.authForm.invalid || this.isLoading) return;
 
-    if (this.isRegister) {
-      this.authService.register(this.authForm.value).subscribe({
-        next: (res) => {
-          this.store.dispatch(loginSuccess({ user: res.user, token: res.token }));
-          this.launchConfetti();
-          this.router.navigate(['/home']);
-        },
-        error: () => alert('שגיאה בהרשמה- האימייל כבר קיים')
-      });
-    } else {
-      this.authService.login(this.authForm.value).subscribe({
-        next: (res) => {
-          this.store.dispatch(loginSuccess({ user: res.user, token: res.token }));
-          this.launchConfetti();
-          this.router.navigate(['/home']);
-        },
-        error: () => alert('אימייל או סיסמה שגויים')
-      });
+  this.isLoading = true;
+
+  const request = this.isRegister 
+    ? this.authService.register(this.authForm.value) 
+    : this.authService.login(this.authForm.value);
+
+  request.subscribe({
+    next: (res) => {
+      this.isLoading = false;
+      this.cdr.detectChanges(); // עדכון מיידי של המסך
+      this.store.dispatch(loginSuccess({ user: res.user, token: res.token }));
+      this.launchConfetti();
+      this.router.navigate(['/home']);
+    },
+    error: (err) => {
+      this.isLoading = false; // 1. ביטול מצב הטעינה
+      this.cdr.detectChanges(); // 2. הכרחת אנגולר לעדכן את ה-HTML (העיגול ייעלם עכשיו)
+
+      // 3. הצגת הודעת השגיאה
+      const message = this.isRegister ? 'שגיאה בהרשמה- האימייל כבר קיים' : 'אימייל או סיסמה שגויים';
+      alert(message);
     }
-  }
+  });
+}
 
 
   private launchConfetti() {
